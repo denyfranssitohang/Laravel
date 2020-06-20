@@ -1,0 +1,10 @@
+.jumbotron img {
+    width: 50px;
+    border: 5px solid #666;
+    height: 50;
+}
+
+.body {
+    margin-bottom: 120px;
+    margin-top: 30px;
+}
