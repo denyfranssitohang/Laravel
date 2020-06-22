@@ -1,4 +1,4 @@
-@extends('layout/main')
+@extends('students/master')
 
 @section('title', 'Detail Mahasiswa')
 
@@ -44,7 +44,8 @@
           </div>
 
           <button type="submit" class="btn btn-primary">Tambah Data</button>
-          
+
+          <a href="/students" class="card-link">Back</a> 
           
         </form>
 

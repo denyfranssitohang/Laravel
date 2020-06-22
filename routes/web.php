@@ -18,17 +18,30 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Route::get('/about', function () {
-//     $nama = 'Sandhika Galih';
+//     $nama = 'Four';
 //     return view('about', ['nama' => $nama]);
 // });
 
 // Method tabel mahasiswa
-Route::get('/', 'PagesController@home');
+Route::get('/', 'PagesController@home')->name('home');
+
+// route login
+Route::get('/login', 'AuthController@login')->name('login');
+
+Route::post('/postlogin', 'AuthController@postlogin');
+
+// route logout
+Route::get('/logout', 'AuthController@logout');
+
+
 Route::get('/about', 'PagesController@about');
 
+// route yang harus login
+// Method tabel Students (cara-2)
+Route::resource('/students', 'StudentsController')->middleware('auth');
 
+//
 Route::get('/mahasiswa', 'MahasiswaController@index');
-
 // Method tabel Students (cara-1)
 // // menampilkan data mahasiswa
 // Route::get('/students', 'StudentsController@index');
@@ -50,7 +63,3 @@ Route::get('/mahasiswa', 'MahasiswaController@index');
 
 // // menangkap dan mengangani data edit
 // Route::patch('/students/{student}', 'StudentsController@update');
-
-// Method tabel Students (cara-2)
-
-Route::resource('students', 'StudentsController');

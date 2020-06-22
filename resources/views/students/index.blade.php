@@ -1,32 +1,34 @@
 @extends('layout/main')
 
-@section('title', 'Daftar Mahasiswa')
+@section('title', 'Detail Mahasiswa')
 
 @section('container')
   <div class="container">
     <div class="row">
       <div class="col-6">
-        <h1 class="mt-3">Daftar Mahasiswa</h1>
+        <h1 class="mt-3">Detail Mahasiswa</h1>        
 
-        <a href="/students/create" class="btn btn-primary my-3">Tambah Data Mahasiswa</a>
-        
-        {{--  alert  --}}
-        @if (session('status'))
-          <div class="alert alert-success">
-            {{ session('status') }}
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{$student->nama}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{$student->nrp}}</h6>
+            <p class="card-text">{{$student->email}}</p>
+            <p class="card-text">{{$student->jurusan}}</p>
+            
+            {{--  link edit  --}}
+            <a href="{{ $student->id }}/edit" class="btn btn-primary">Edit</a>
+            
+            {{-- button delete  --}}
+            <form action="/students/{{ $student->id }}" method="post" class="d-inline">
+            @method('delete')
+            @csrf
+            
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>        
+
+            <a href="/students" class="card-link">Back</a>              
           </div>
-        @endif
-        
-          {{--  tampilkan list mahasiswa  --}}
-          <ul class="list-group">
-            @foreach ($students as $student)
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              {{ $student->nama }}
-              {{--  button detail  --}}
-              <a href="/students/{{$student->id}}" class="badge badge-info">detail</a>
-            </li>          
-          </ul>
-        @endforeach
+        </div>
       </div>
     </div>
   </div>

@@ -16,7 +16,7 @@ class StudentsController extends Controller
     {
         // query
         $students = Student::all();
-        return view('students.index', ['students' => $students]); // compact('students)
+        return view('students.master', ['students' => $students]); // compact('students)
     }
 
     /**
