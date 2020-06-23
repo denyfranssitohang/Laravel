@@ -34,6 +34,7 @@
 		<!-- END LEFT SIDEBAR -->
 		
 		<!-- MAIN -->
+		@include('students/index')
 		<!-- END MAIN -->
 		<div class="clearfix"></div>
 		<footer>

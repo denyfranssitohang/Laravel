@@ -13,53 +13,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('index');
-// });
-
-// Route::get('/about', function () {
-//     $nama = 'Four';
-//     return view('about', ['nama' => $nama]);
-// });
-
-// Method tabel mahasiswa
-Route::get('/', 'PagesController@home')->name('home');
+// route home laravel
+Route::get('/', function () {
+    return view('home');
+});
 
 // route login
 Route::get('/login', 'AuthController@login')->name('login');
-
 Route::post('/postlogin', 'AuthController@postlogin');
 
 // route logout
 Route::get('/logout', 'AuthController@logout');
 
+// route login admin
+Route::group(['middleware' => ['auth','checkRole:admin']],function(){
 
-Route::get('/about', 'PagesController@about');
+	// route mahasiswa
+	Route::get('/mahasiswa', 'MahasiswaController@index');
 
-// route yang harus login
-// Method tabel Students (cara-2)
-Route::resource('/students', 'StudentsController')->middleware('auth');
+	// route tambah data
+	Route::post('/mahasiswa/create', 'MahasiswaController@create');
 
-//
-Route::get('/mahasiswa', 'MahasiswaController@index');
-// Method tabel Students (cara-1)
-// // menampilkan data mahasiswa
-// Route::get('/students', 'StudentsController@index');
+	// route delete
+	Route::get('/mahasiswa/{id}/delete', 'MahasiswaController@delete');
 
-// // menampilkan form tambah data
-// Route::get('/students/create', 'StudentsController@create');
+});
 
-// // menampilkan detail mahasiswa
-// Route::get('/students/{student}', 'StudentsController@show');
-
-// // menangani insert data ke database
-// Route::post('/students', 'StudentsController@store');
-
-// // menangani delete data mahasiswa
-// Route::delete('/students/{student}', 'StudentsController@destroy');
-
-// // menampilkan form edit
-// Route::get('students/{student}', 'StudentsController@edit');
-
-// // menangkap dan mengangani data edit
-// Route::patch('/students/{student}', 'StudentsController@update');
+Route::group(['middleware' => ['auth','checkRole:admin,mahasiswa']],function(){
+	// route dashboard
+	Route::get('/dashboard', 'DashboardController@index');
+	// route avatar
+	Route::get('/mahasiswa/{id}/profile', 'MahasiswaController@profile');	
+	// route edit data
+	Route::get('/mahasiswa/{id}/edit', 'MahasiswaController@edit');
+	// route update data
+	Route::post('/mahasiswa/{id}/update', 'MahasiswaController@update');
+});
