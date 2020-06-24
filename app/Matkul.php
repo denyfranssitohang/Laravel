@@ -10,7 +10,7 @@ class Matkul extends Model
 	protected $table = 'matkul';
 	protected $filable = ['kode','nama', 'semester'];
 
-	// deklarasi model matkul
+	// deklarasi relations model matkul
 	public function mahasiswa()
 	{
 		return $this->belongsToMany(Mahasiswa::class)->withPivot(['nilai']);

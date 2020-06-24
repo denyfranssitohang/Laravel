@@ -22,8 +22,9 @@ class Mahasiswa extends Model
     	return asset('images/'.$this->avatar);
     }
 
+    // deklarasi relations model mahasiswa
     public function matkul()
     {
-        return $this->belongsToMany(Matkul::class)->withPivot(['nilai']);
+        return $this->belongsToMany(Matkul::class)->withPivot(['nilai'])->withTimeStamps();
     }
 }

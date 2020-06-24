@@ -11,7 +11,7 @@
                 <div class="panel-heading">
                   <h3 class="panel-title">Edit Data Mahasiswa</h3>
                   @if (session('sukses'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-success" role="alert">
                       {{ session('sukses') }}
                     </div>        
                   @endif

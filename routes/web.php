@@ -37,6 +37,11 @@ Route::group(['middleware' => ['auth','checkRole:admin']],function(){
 	// route delete
 	Route::get('/mahasiswa/{id}/delete', 'MahasiswaController@delete');
 
+	// route tambah nilai
+	Route::post('/mahasiswa/{id}/addnilai', 'MahasiswaController@addnilai');
+
+	// route hapus nilai
+	Route::get('/mahasiswa/{id}/{idmatkul}/deletenilai','MahasiswaController@deletenilai');
 });
 
 Route::group(['middleware' => ['auth','checkRole:admin,mahasiswa']],function(){

@@ -32,17 +32,21 @@ class MahasiswaController extends Controller
     // function create
     public function create(Request $request)
     {        
-        // validasi data
+        // validasi form tambah data
         // $request->validate([
-        //     'nama_depan' => 'required',
+        // $this->validate($request,[
+        //     'nama_depan' => 'required|min:2',
         //     'nama_belakang' => 'required',
-        //     'nrp' => 'required|size:9',
+        //     'email' => 'required|email|unique:users',
+        //     'nrp' => 'required',
         //     'jenis_kelamin' => 'required',
         //     'jurusan' => 'required',
-        //     'alamat' => 'required'            
+        //     'alamat' => 'required',
+        //     'avatar' => 'mimes:jpg,png,jpeg',
+        //     // 'nrp' => 'required|size:9',          
         // ]); 
         
-        // input table user
+        // input ke table user
         $user = new User;
         $user->role = 'mahasiswa';
         $user->name = $request->nama_depan;
@@ -54,9 +58,12 @@ class MahasiswaController extends Controller
         // insert ke table mahasiswa
         $request->request->add(['user_id' => $user->id]);
         $mahasiswa = Mahasiswa::create($request->all());
-        
-
-
+        // upload avatar (file)
+        if($request->hasFile('avatar')){
+            $request->file('avatar')->move('images/',$request->file('avatar')->getClientOriginalName());
+            $mahasiswa->avatar = $request->file('avatar')->getClientOriginalName();
+            $mahasiswa->save();
+        };
         // tampilkan ke list mahasiswa
         return redirect('/mahasiswa')->with('sukses', 'Data berhasil ditambahkan');
     }
@@ -88,6 +95,7 @@ class MahasiswaController extends Controller
         return redirect('/mahasiswa')->with('sukses', 'Data berhasil diupdate');
     }
 
+    // function hapus
     public function delete($id)
     {
         $mahasiswa = Mahasiswa::find($id);
@@ -99,6 +107,51 @@ class MahasiswaController extends Controller
     public function profile($id)
     {
         $mahasiswa = Mahasiswa::find($id);
-        return view('mahasiswa/profile',['mahasiswa' => $mahasiswa]);
-    }    
+        $matakuliah = \App\Matkul::all();
+        // dd($matkul);
+
+        // menyiapkan data untuk chart
+        $categories = [];
+        $nilai = [];
+        foreach ($matakuliah as $mk) {
+            // kondisi dimana hanya mahasiswa yang sudah memiliki nilai dari mata kuliah yang akan ditampilkan pada grafik
+            if ($mahasiswa->matkul()->wherePivot('matkul_id',$mk->id)->first()) {
+                $categories[] = $mk->nama;
+                $nilai[] = $mahasiswa->matkul()->wherePivot('matkul_id',$mk->id)->first()->pivot->nilai;
+            }
+        }
+
+        // dd($nilai);
+        // dd(json_encode($categories));
+
+        // tampilkan di profile
+        return view('mahasiswa/profile',['mahasiswa' => $mahasiswa, 'matakuliah' => $matakuliah, 'categories' => $categories, 'nilai' => $nilai]);
+    }
+
+    // function tambah nilai ke database
+    public function addnilai(Request $request,$idmahasiswa)
+    {
+        // 
+        $mahasiswa = Mahasiswa::find($idmahasiswa);
+        // validasi matkul pada pivot table
+        if($mahasiswa->matkul()->where('matkul_id',$request->matkul)->exists()){
+            return redirect('mahasiswa/'.$idmahasiswa.'/profile')->with('error','Data nilai sudah ada');
+        }
+
+        // masukkan nilai ke database
+        $mahasiswa->matkul()->attach($request->matkul,['nilai' => $request->nilai]);
+        return redirect('mahasiswa/'.$idmahasiswa.'/profile')->with('sukses','Nilai berhasil dimasukkan');
+    }
+
+    // function delete nilai
+    public function deletenilai($idmahasiswa,$idmatkul)
+    {
+        $mahasiswa = \App\Mahasiswa::find($idmahasiswa);
+        // hapus data dari pivot table
+        $mahasiswa->matkul()->detach($idmatkul);
+        // kembali ke route sebelumnya
+        return redirect()->back()->with('sukses','Nilai berhasil dihapus');
+    }
 }
+
+
