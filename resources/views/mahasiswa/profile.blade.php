@@ -77,7 +77,7 @@
 						<!-- TABBED CONTENT -->
 						<div class="panel">
 							<div class="panel-heading">
-								<h3 class="panel-title">Striped Row</h3>
+								<h3 class="panel-title">Mata Kuliah</h3>
 							</div>
 							<div class="panel-body">
 								<table class="table table-striped">
@@ -87,6 +87,7 @@
 											<th>Nama</th>
 											<th>Semester</th>
 											<th>Nilai</th>
+											<th>Dosen</th>
 											<th>Aksi</th>
 										</tr>
 									</thead>
@@ -99,6 +100,8 @@
 											<td>{{$matkul->semester}}</td>
 											{{-- element editable --}}
 											<td><a href="#" class="nilai" data-type="text" data-pk="{{$matkul->id}}" data-url="/api/mahasiswa/{{$mahasiswa->id}}/editnilai" data-title="Masukkan nilai">{{$matkul->pivot->nilai}}</a></td>
+											{{-- end element editable --}}
+											<td><a href="/dosen/{{$matkul->dosen_id}}/profile">{{$matkul->dosen->nama}}</a></td>
 											<td><a href="/mahasiswa/{{$mahasiswa->id}}/{{$matkul->id}}/deletenilai" class="btn btn-danger btn-sm" role="button" onclick="return confirm('Yakin ingin menghapus')">Delete</a></td>
 										</tr>
 										@endforeach									

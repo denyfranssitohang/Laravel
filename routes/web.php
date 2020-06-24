@@ -18,6 +18,11 @@ Route::get('/', function () {
     return view('home');
 });
 
+// route about
+Route::get('/about', function () {
+    return view('about');
+});
+
 // route login
 Route::get('/login', 'AuthController@login')->name('login');
 Route::post('/postlogin', 'AuthController@postlogin');
@@ -42,6 +47,9 @@ Route::group(['middleware' => ['auth','checkRole:admin']],function(){
 
 	// route hapus nilai
 	Route::get('/mahasiswa/{id}/{idmatkul}/deletenilai','MahasiswaController@deletenilai');
+
+	// route dosen
+	Route::get('/dosen/{id}/profile', 'DosenController@profile');
 });
 
 Route::group(['middleware' => ['auth','checkRole:admin,mahasiswa']],function(){
