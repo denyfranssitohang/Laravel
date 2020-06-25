@@ -27,4 +27,28 @@ class Mahasiswa extends Model
     {
         return $this->belongsToMany(Matkul::class)->withPivot(['nilai'])->withTimeStamps();
     }
+
+    // custom function rata rata nilai
+    public function rataRata()
+    {
+        // ambil nilai
+        $total = 0;
+        $hitung = 0;
+        foreach ($this->matkul as $matkul) {
+            $total += $matkul->pivot->nilai;
+            $hitung++;
+        }
+
+        if($total==0){
+            return $total;
+        } else {
+            return round($total/$hitung);            
+        }
+    }
+
+    // custom function nama_lengkap
+    public function nama_lengkap()
+    {
+        return $this->nama_depan.' '.$this->nama_belakang;
+    }
 }

@@ -39,7 +39,7 @@
 										{{$mahasiswa->matkul->count()}} <span>Mata Kuliah</span>
 									</div>
 									<div class="col-md-4 stat-item">
-										15 <span>Awards</span>
+										{{$mahasiswa->rataRata()}} <span>Rata-Rata Nilai</span>
 									</div>
 									<div class="col-md-4 stat-item">
 										2174 <span>Points</span>
@@ -125,6 +125,7 @@
 		</div>
 	</div>
 	<!-- END MAIN CONTENT -->
+</div>
 	
 	<!-- Modal Nilai-->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

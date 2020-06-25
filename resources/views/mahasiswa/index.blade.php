@@ -32,6 +32,7 @@
                         <th>Jenis Kelamin</th>
                         <th>Jurusan</th>
                         <th>Alamat</th>
+                        <th>Rata-Rata</th>
                         <th>Aksi</th>    
                       </tr>
                     </thead>
@@ -45,6 +46,7 @@
                         <td>{{$mhs->jenis_kelamin}}</td>
                         <td>{{$mhs->jurusan}}</td>
                         <td>{{$mhs->alamat}}</td>
+                        <td>{{$mhs->rataRata()}}</td>
                         <td><a href="/mahasiswa/{{$mhs->id}}/edit" class="btn btn-warning btn-sm" role="button">Edit</a></td>
                         <td><a href="/mahasiswa/{{$mhs->id}}/delete" class="btn btn-danger btn-sm" role="button" onclick="return confirm('Yakin ingin menghapus')">Delete</a></td>
                       </tr>      
