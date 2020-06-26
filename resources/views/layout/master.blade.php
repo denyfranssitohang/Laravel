@@ -15,6 +15,8 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
 	<link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}">
+	{{-- Toaster css --}}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	<!-- GOOGLE FONTS -->
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
 	<!-- ICONS -->
@@ -43,8 +45,9 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-</p>
+				<p class="copyright">Shared by <i class="fa fa-love"></i>
+					<a href="https://bootstrapthemes.co">BootstrapThemes</a>
+				</p>
 			</div>
 		</footer>
 	</div>
@@ -56,7 +59,16 @@
 	<script src="{{ asset('assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
 	<script src="{{ asset('assets/vendor/chartist/js/chartist.min.js') }}"></script>
 	<script src="{{ asset('assets/scripts/klorofil-common.js') }}"></script>
-	
+	{{-- sweetalert js --}}
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	{{-- toaster js --}}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	{{-- alert delete --}}
+	<script>
+		@if(Session::has('sukses'))
+			toastr.success("{{Session::get('sukses')}}","Sukses")
+		@endif
+	</script>	
 	@yield('footer')
 </body>
 

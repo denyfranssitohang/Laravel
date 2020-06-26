@@ -40,7 +40,8 @@ Route::group(['middleware' => ['auth','checkRole:admin']],function(){
 	Route::post('/mahasiswa/create', 'MahasiswaController@create');
 
 	// route delete
-	Route::get('/mahasiswa/{id}/delete', 'MahasiswaController@delete');
+	// Route::get('/mahasiswa/{id}/delete', 'MahasiswaController@delete');
+	Route::get('/mahasiswa/{mahasiswa}/delete', 'MahasiswaController@delete');	// cara route model binding profile
 
 	// route tambah nilai
 	Route::post('/mahasiswa/{id}/addnilai', 'MahasiswaController@addnilai');
@@ -55,10 +56,22 @@ Route::group(['middleware' => ['auth','checkRole:admin']],function(){
 Route::group(['middleware' => ['auth','checkRole:admin,mahasiswa']],function(){
 	// route dashboard
 	Route::get('/dashboard', 'DashboardController@index');
-	// route avatar
-	Route::get('/mahasiswa/{id}/profile', 'MahasiswaController@profile');	
+
+	// route profile
+	// Route::get('/mahasiswa/{id}/profile', 'MahasiswaController@profile');	
+	Route::get('/mahasiswa/{mahasiswa}/profile', 'MahasiswaController@profile'); // cara route model binding profile
+
 	// route edit data
-	Route::get('/mahasiswa/{id}/edit', 'MahasiswaController@edit');
+	// Route::get('/mahasiswa/{id}/edit', 'MahasiswaController@edit');
+	Route::get('/mahasiswa/{mahasiswa}/edit', 'MahasiswaController@edit'); // cara route model binding edit
+
 	// route update data
-	Route::post('/mahasiswa/{id}/update', 'MahasiswaController@update');
+	// Route::post('/mahasiswa/{id}/update', 'MahasiswaController@update');
+	Route::post('/mahasiswa/{mahasiswa}/update', 'MahasiswaController@update'); // cara route model binding update
+	
+	// route export excel
+	Route::get('/mahasiswa/exportExcel', 'MahasiswaController@exportExcel');
+	
+	// route export pdf
+	Route::get('/mahasiswa/exportPDF', 'MahasiswaController@exportPDF');
 });

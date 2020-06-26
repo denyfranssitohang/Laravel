@@ -2,11 +2,11 @@
 
 @section('content')
   <div class="main">
-    @if(session('sukses'))
+    {{-- @if(session('sukses'))
       <div class="alert alert-success" role="alert">
         {{session('sukses')}}
       </div>
-    @endif
+    @endif --}}
     <div class="main-contect">
       <div class="container-fluid">
         <div class="row">
@@ -14,6 +14,10 @@
             <div class="panel">  
                 <div class="panel-heading">
                   <h3 class="panel-title">Data Mahasiswa</h3> 
+                  <div class="right">
+                    <a href="/mahasiswa/exportExcel" class="btn btn-primary btn-sm">Export Excel</a>
+                    <a href="/mahasiswa/exportPDF" class="btn btn-primary btn-sm">Export PDF</a>
+                  </div>
                   <br>
                   <div class="left">                 
                     <!-- Button trigger modal -->
@@ -48,7 +52,9 @@
                         <td>{{$mhs->alamat}}</td>
                         <td>{{$mhs->rataRata()}}</td>
                         <td><a href="/mahasiswa/{{$mhs->id}}/edit" class="btn btn-warning btn-sm" role="button">Edit</a></td>
-                        <td><a href="/mahasiswa/{{$mhs->id}}/delete" class="btn btn-danger btn-sm" role="button" onclick="return confirm('Yakin ingin menghapus')">Delete</a></td>
+                        {{-- <td><a href="/mahasiswa/{{$mhs->id}}/delete" class="btn btn-danger btn-sm" role="button" onclick="return confirm('Yakin ingin menghapus')">Delete</a></td> --}}
+                        {{-- menggunakan sweetalert js --}}
+                        <td><a href="#" class="btn btn-danger btn-sm delete" role="button" mahasiswa-id="{{$mhs->id}}">Delete</a></td>
                       </tr>      
                       @endforeach  
                     </tbody>
@@ -161,4 +167,25 @@
     </div>
   </div>
 
+@stop
+
+@section('footer')
+  {{-- jquery delete --}}
+  <script>
+    $('.delete').click(function(){
+      var mahasiswa_id = $(this).attr('mahasiswa-id'); // menangkap id didalam element dengan attribute mahasiswa-id
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover id "+mahasiswa_id+" file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          window.location = "/mahasiswa/"+mahasiswa_id+"/delete";
+        }
+      });
+    }); // class delete pada element
+  </script>
 @stop

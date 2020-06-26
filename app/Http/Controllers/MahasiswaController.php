@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Mahasiswa;
+use App\Mahasiswa; // import mahasiswa
 use Illuminate\Http\Request;
+
+// import package Export
+use App\Exports\MahasiswaExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
+
 
 class MahasiswaController extends Controller
 {
@@ -69,20 +75,21 @@ class MahasiswaController extends Controller
     }
 
     // function edit
-    public function edit($id)
+    // public function edit($id)
+    public function edit(Mahasiswa $mahasiswa) // function route model binding edit (bisa digunakan untuk semua yang memakai find::all)
     {
-        // 
-        $mahasiswa = Mahasiswa::find($id);
-        // 
+        // $mahasiswa = Mahasiswa::find($id);
         return view('mahasiswa/edit',['mahasiswa' => $mahasiswa]);
     }
 
     // function update
-    public function update(Request $request,$id)
+    // public function update(Request $request,$id)
+    public function update(Request $request, Mahasiswa $mahasiswa) // function route model binding update
     {
         // dd($request->all());
         // menngkap id mahasiswa
-        $mahasiswa = Mahasiswa::find($id);
+        // $mahasiswa = Mahasiswa::find($id);
+
         // update data
         $mahasiswa->update($request->all());
         // update avatar (file)
@@ -96,17 +103,18 @@ class MahasiswaController extends Controller
     }
 
     // function hapus
-    public function delete($id)
+    public function delete(Mahasiswa $mahasiswa)
     {
-        $mahasiswa = Mahasiswa::find($id);
+        // $mahasiswa = Mahasiswa::find($id);
         $mahasiswa->delete($mahasiswa);
         return redirect('/mahasiswa')->with('sukses','Data berhasil dihapus');
     }
 
     // function profile
-    public function profile($id)
+    // public function profile($id)
+    public function profile(Mahasiswa $mahasiswa) // function route model binding profile
     {
-        $mahasiswa = Mahasiswa::find($id);
+        // $mahasiswa = Mahasiswa::find($id);
         $matakuliah = \App\Matkul::all();
         // dd($matkul);
 
@@ -151,6 +159,20 @@ class MahasiswaController extends Controller
         $mahasiswa->matkul()->detach($idmatkul);
         // kembali ke route sebelumnya
         return redirect()->back()->with('sukses','Nilai berhasil dihapus');
+    }
+
+    // function export excel
+    public function exportExcel() 
+    {
+        return Excel::download(new MahasiswaExport, 'mahasiswa.xlsx');
+    }
+
+    // function export pdf 
+    public function exportPDF() 
+    {
+        $mahasiswa = Mahasiswa::all();
+        $pdf = PDF::loadView('export.exportpdf',['mahasiswa'=>$mahasiswa]);
+        return $pdf->download('mahasiswa.pdf');
     }
 }
 
