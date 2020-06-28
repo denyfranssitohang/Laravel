@@ -23,7 +23,7 @@
 	<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
 	<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/img/favicon.png') }}">
 
-	{{-- link css xeditable --}}
+	{{-- link css xeditable pada file profile mahasiswa --}}
 	@yield('header')
 
 </head>
@@ -32,11 +32,11 @@
 	<!-- WRAPPER -->
 	<div id="wrapper">
 		<!-- NAVBAR -->
-		@include('layout.includes._navbar')
+		@include('layout.partialmaster._navbar')
 		<!-- END NAVBAR -->
 
 		<!-- LEFT SIDEBAR -->
-		@include('layout.includes._sidebar')	
+		@include('layout.partialmaster._sidebar')	
 		<!-- END LEFT SIDEBAR -->
 		
 		<!-- MAIN -->

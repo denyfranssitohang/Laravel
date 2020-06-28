@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {{--  head  --}}
- @include('partials._head')
+ @include('layout.partialfrontend.css')
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
    
@@ -45,12 +45,12 @@
     </div>
     <br><br><br>
 
-    @include('partials._footer')    
+   @include('layout.partialfrontend._footer')    
 
   </div>
 
 
-  @include('partials._scripts')
+  @include('layout.partialfrontend._scripts')
 
 </body>
 

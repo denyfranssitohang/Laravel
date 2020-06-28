@@ -13,14 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// route home laravel
-Route::get('/', function () {
-    return view('home');
-});
+// route sites
+Route::get('/', 'SiteController@home');
+// route register
+Route::get('/register', 'SiteController@register');
 
 // route about
 Route::get('/about', function () {
-    return view('about');
+    return view('sites/about');
+});
+
+// route contact
+Route::get('/contact', function () {
+    return view('sites/contact');
 });
 
 // route login
