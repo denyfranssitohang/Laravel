@@ -10,9 +10,9 @@
             <div class="panel">
                 <div class="panel-heading">
                   <h3 class="panel-title">Edit Data Mahasiswa</h3>
-                  @if (session('sukses'))
-                    <div class="alert alert-success" role="alert">
-                      {{ session('sukses') }}
+                  @if (session('gagal'))
+                    <div class="alert alert-danger" role="alert">
+                      {{ session('gagal') }}
                     </div>        
                   @endif
                 </div>

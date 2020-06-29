@@ -25,7 +25,7 @@
       @include('layout/partialfrontend/_footer')
 
       <!-- .site-wrap -->
-    @include('layout.partialfrontend._scripts')
+    @include('layout.partialfrontend._scripts')  
 
   </body>
 </html>

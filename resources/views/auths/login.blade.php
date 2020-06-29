@@ -5,7 +5,17 @@
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
    
-
+    <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('images/bg_1.jpg')">
+      <div class="container">
+        <div class="row align-items-end justify-content-center text-center">
+          <div class="col-lg-7">
+            <h2 class="mb-0">Login</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+      
     <div class="custom-breadcrumns border-bottom">
       <div class="container">
         <a href="{{ url('/') }}">Home</a>
@@ -16,7 +26,6 @@
 
     <div class="site-section">
         <div class="container">
-
           <div class="row justify-content-center">
               <div class="col-md-5">
                   <div class="row">
@@ -51,6 +60,18 @@
 
 
   @include('layout.partialfrontend._scripts')
+
+  {{-- sweetalert js --}}
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  {{-- toaster js --}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  {{-- alert delete --}}
+
+  <script>
+    @if(Session::has('gagal'))
+      toastr.error("{{Session::get('gagal')}}","Login Gagal")
+    @endif
+  </script> 
 
 </body>
 

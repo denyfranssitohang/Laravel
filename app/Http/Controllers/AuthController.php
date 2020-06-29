@@ -31,7 +31,7 @@ class AuthController extends Controller
             return redirect('/');
         }
 
-        return redirect('/login');
+        return redirect('/login')->with('gagal','Email atau password tidak benar');
 
     }
 

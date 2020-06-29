@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'SiteController@home');
 // route register
 Route::get('/register', 'SiteController@register');
+Route::post('/postregister', 'SiteController@postregister');
 
 // route about
 Route::get('/about', function () {
